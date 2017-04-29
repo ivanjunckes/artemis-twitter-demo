@@ -1,4 +1,4 @@
-package twitter;
+package twitter.service;
 
 import twitter4j.Query;
 import twitter4j.QueryResult;
