@@ -13,7 +13,7 @@ public class TwitterService {
 
     public static void main(String[] args) throws TwitterException {
         TwitterService listener = new TwitterService();
-        listener.listenTweets("#Gol");
+        System.out.println(listener.listenTweets("#jnosql"));
     }
 
     public List<Status> listenTweets(String hashTag) throws TwitterException {
