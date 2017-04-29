@@ -3,6 +3,7 @@ package twitter;
 
 import org.jnosql.artemis.Database;
 import org.jnosql.artemis.DatabaseType;
+import org.jnosql.artemis.document.DocumentRepository;
 import org.jnosql.diana.api.document.DocumentQuery;
 import twitter4j.Status;
 import twitter4j.TwitterException;
@@ -27,6 +28,9 @@ public class TwitterResource {
     @Inject
     private TwitterService twitterService;
 
+    @Database(value = DatabaseType.DOCUMENT, provider = "mongoDb")
+    private DocumentRepository repository;
+
     @GET
     @Path("{hashtag}")
     public Response getTweetByHashtag(@PathParam("hashtag") String hashTag){
@@ -45,7 +49,8 @@ public class TwitterResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMongoDbTweets(){
-        final DocumentQuery tweets = DocumentQuery.of("tweet");
+        final DocumentQuery query = DocumentQuery.of("tweet");
+        List<Tweet> tweets = repository.find(query);
         return Response.ok().build();
     }
 
