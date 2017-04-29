@@ -1,4 +1,4 @@
-package twitter.model;
+package twitter;
 
 
 import org.jnosql.artemis.Column;

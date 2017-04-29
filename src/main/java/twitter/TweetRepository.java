@@ -1,8 +1,7 @@
-package twitter.repository;
+package twitter;
 
 
 import org.jnosql.artemis.CrudRepository;
-import twitter.model.Tweet;
 
 import java.util.Optional;
 
