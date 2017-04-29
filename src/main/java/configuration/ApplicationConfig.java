@@ -1,6 +1,6 @@
 package configuration;
 
-import twitter.resource.TwitterResource;
+import twitter.TwitterResource;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

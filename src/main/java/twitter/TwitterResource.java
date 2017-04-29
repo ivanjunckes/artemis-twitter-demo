@@ -1,10 +1,8 @@
-package twitter.resource;
+package twitter;
 
 
 import org.jnosql.artemis.Database;
 import org.jnosql.artemis.DatabaseType;
-import twitter.repository.TweetRepository;
-import twitter.service.TwitterService;
 import twitter4j.Status;
 import twitter4j.TwitterException;
 

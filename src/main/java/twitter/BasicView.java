@@ -2,6 +2,7 @@ package twitter;
 
 import javax.faces.bean.ManagedBean;
 
+@Deprecated
 @ManagedBean
 public class BasicView {
 
