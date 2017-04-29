@@ -35,6 +35,11 @@
             <version>0.0.2-SNAPSHOT</version>
         </dependency>
         <dependency>
+            <groupId>org.jnosql.diana</groupId>
+            <artifactId>couchbase-driver</artifactId>
+            <version>0.0.2-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
             <version>6.1</version>

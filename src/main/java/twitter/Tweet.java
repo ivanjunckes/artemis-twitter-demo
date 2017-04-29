@@ -5,14 +5,13 @@ import org.jnosql.artemis.Column;
 import org.jnosql.artemis.Entity;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Date;
 
 @XmlRootElement
 @Entity
 public class Tweet {
 
     @Column("_id")
-    private long id;
+    private String id;
 
     @Column
     private String user;
@@ -21,13 +20,13 @@ public class Tweet {
     private String text;
 
     @Column
-    private Date createdAt;
+    private String createdAt;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -47,15 +46,20 @@ public class Tweet {
         this.text = text;
     }
 
-    public Date getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Tweet(String user, String text, Date createdAt) {
+    public Tweet(){
+
+    }
+
+    public Tweet(String id, String user, String text, String createdAt) {
+        this.id = id;
         this.user = user;
         this.text = text;
         this.createdAt = createdAt;

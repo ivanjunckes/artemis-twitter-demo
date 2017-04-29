@@ -15,10 +15,15 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.Optional;
 
 @Path("tweets")
 public class TwitterResource {
 
+
+    @Inject
+    @Database(value = DatabaseType.DOCUMENT, provider = "couchDb")
+    private TweetRepository couchBaseDb;
 
     @Inject
     @Database(value = DatabaseType.DOCUMENT, provider = "mongoDb")
@@ -29,12 +34,15 @@ public class TwitterResource {
 
     @GET
     @Path("{hashtag}")
-    public Response getTweetByHashtag(@PathParam("hashtag") String hashTag){
+    public Response getTweetsByHashtag(@PathParam("hashtag") String hashTag) {
         try {
-            final List<Status> tweets = twitterService.listenTweets(hashTag);
-            for(Status status : tweets){
-                Tweet tweet = new Tweet(status.getUser().getScreenName(), status.getText(), status.getCreatedAt());
-                mongoDb.save(tweet);
+            final List<Status> tweets = twitterService.readTweets(hashTag);
+            for (Status status : tweets) {
+                if (status.getText().contains("mongodb")) {
+                    handleTweet(status, mongoDb);
+                } else if (status.getText().contains("couchdb")) {
+                    handleTweet(status, couchBaseDb);
+                }
             }
         } catch (TwitterException e) {
             e.printStackTrace();
@@ -42,11 +50,18 @@ public class TwitterResource {
         return Response.ok().build();
     }
 
+    private void handleTweet(Status status, TweetRepository repository) {
+        final Optional<Tweet> byId = repository.findById(status.getId());
+        if (!byId.isPresent()) {
+            Tweet tweet = new Tweet(String.valueOf(status.getId()), status.getUser().getScreenName(), status.getText(), status.getCreatedAt().toString());
+            repository.save(tweet);
+        }
+    }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getMongoDbTweets(){
+    public Response getMongoDbTweets() {
         final DocumentQuery tweets = DocumentQuery.of("tweet");
         return Response.ok().build();
     }
-
 }

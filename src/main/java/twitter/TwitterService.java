@@ -13,10 +13,10 @@ public class TwitterService {
 
     public static void main(String[] args) throws TwitterException {
         TwitterService listener = new TwitterService();
-        System.out.println(listener.listenTweets("#jnosql"));
+        System.out.println(listener.readTweets("#jnosql"));
     }
 
-    public List<Status> listenTweets(String hashTag) throws TwitterException {
+    public List<Status> readTweets(String hashTag) throws TwitterException {
         Twitter twitter = TwitterFactory.getSingleton();
         Query query = new Query(hashTag);
         QueryResult result = twitter.search(query);
